@@ -1,0 +1,215 @@
+<odoo>
+  <data>
+    <!--Contacts-->
+     <record id="action_contacts" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a contact in your address book
+          </p><p>
+            Odoo helps you to easily track all activities related to a customer.
+          </p>
+        </field>
+    </record>
+    <record id="action_contacts_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="base.res_partner_kanban_view"/>
+        <field name="act_window_id" ref="action_contacts"/>
+    </record>
+    <record id="action_contacts_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="base.view_partner_tree"/>
+        <field name="act_window_id" ref="action_contacts"/>
+    </record>
+    <record id="action_contacts_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="base.view_partner_form"/>
+        <field name="act_window_id" ref="action_contacts"/>
+    </record>
+
+    <record id="action_contacts_summary" model="ir.actions.act_window">
+        <field name="name">Contacts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">activity,kanban,tree,form</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a contact in your address book
+            </p><p>
+                Odoo helps you to easily track all activities related to a customer.
+            </p>
+        </field>
+    </record>
+
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="chitfund.list">
+      <field name="name">chitfund list</field>
+      <field name="model">chitfund.chitfund</field>
+      <field name="arch" type="xml">
+        <tree>
+         <!-- <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>-->
+         <!-- <field name="name"/>-->
+          <field name="chit_name"/>
+          <field name="chit_code"/>
+          <field name="chit_amount"/>
+          <field name="number_of_clients"/>
+          <field name="installment_amount"/>
+          <field name="auction_date"/>
+          <field name="subscription_date"/>
+          <field name="due_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="chitfund_form_view">
+      <field name="name">Chit Form</field>
+      <field name="model">chitfund.chitfund</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group string="Chit">
+              <group>
+                <!--<field name="name"/>-->
+                <field name="chit_name"/>
+                <field name="chit_code"/>
+                <field name="chit_amount"/>
+                <field name="number_of_clients"/>
+                <field name="installment_amount"/>
+              </group>
+              <group>
+                <field name="auction_date"/>
+                <field name="subscription_date"/>
+                <field name="due_date"/>
+                <field name="description"/>
+              </group>
+            </group>
+              <notebook>
+                <page string="General">
+                </page>
+                <page string="Clients" autofocus="autofocus">
+                    <field name="chit_id">
+                        <tree>
+                            <field name="user_id"/>
+                            <field name="ticket_no"/>
+                        </tree>
+                    </field>
+                </page>
+              </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+       <!--Subscription Screen-->
+    <record model="ir.ui.view" id="chitfund.subscription_list">
+      <field name="name">chitfund list</field>
+      <field name="model">chit.subscription</field>
+      <field name="arch" type="xml">
+        <tree>
+          <!--<field name="sub_name"/>
+          <field name="sub_contact"/>-->
+          <field name="g_id"/>
+          <field name="auction_date"/>
+          <field name="number_of_clients"/>
+          <field name="subscription_date"/>
+          <field name="installment_amount"/>
+          <field name="due_date"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="chitfund_subscription_form_view">
+      <field name="name">Chit Form</field>
+      <field name="model">chit.subscription</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group string="Subscriber">
+              <group>
+               <!-- <field name="sub_name"/>
+                <field name="sub_contact"/>-->
+                <field name="date"/>
+                <field name="g_id"/>
+                <field name="auction_date"/>
+                <field name="number_of_clients"/>
+              </group>
+              <group>
+                <field name="due_date"/>
+                <field name="group_description"/>
+                <field name="subscription_date"/>
+                <field name="installment_amount"/>
+              </group>
+            </group>
+            <notebook>
+                <page string="Subscription Entry">
+                    <field name="detail_id">
+                    <tree>
+                        <field name="client_name"/>
+                        <field name="subscription_date"/>
+                        <field name="installment_amount"/>
+                        <field name="bank_name"/>
+                        <field name="bank_reference"/>
+                        <field name="paid_amount"/>
+                        <field name="cumulative_instalement_amount"/>
+                    </tree>
+                    </field>
+                </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="chitfund.action_window">
+      <field name="name">chitfund</field>
+      <field name="res_model">chitfund.chitfund</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--Subscription action views-->
+    <record model="ir.actions.act_window" id="action_subscription">
+        <field name="name">Subscription Entry</field>
+        <field name="res_model">chit.subscription</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="chitfund" id="chitfund.menu_root"/>
+    <!-- menu categories -->
+    <menuitem id="chitfund.menu_1"
+              name="Chit"
+              parent="chitfund.menu_root"
+              action="chitfund.action_window"/>
+
+   <!-- <menuitem id="chitfund.menu_2"
+              name="Subscription Entry"
+              action="action_subscription"
+              parent="chitfund.menu_root"/>-->
+
+    <menuitem id="chitfund.menu_2"
+              name="Subscription Entry"
+              parent="chitfund.menu_root"
+              action="action_subscription"/>
+
+    <menuitem id="chitfund.menu_3"
+              name="Contacts"
+              action="action_contacts"
+              parent="chitfund.menu_root"/>
+  </data>
+</odoo>
